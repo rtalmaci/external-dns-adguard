@@ -1,14 +1,12 @@
-import sys
-import os
 import asyncio
-import multiprocessing
 import logging
+import multiprocessing
+import sys
 
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from kubernetes import client, config, watch
 import requests
-from requests.auth import HTTPBasicAuth
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from dotenv import load_dotenv
+from kubernetes import client, config, watch
 
 from config import Config
 
