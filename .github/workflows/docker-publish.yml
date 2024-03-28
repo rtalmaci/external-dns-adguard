@@ -27,13 +27,17 @@ jobs:
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
-      - name: Log into registry ${{ env.REGISTRY }}
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Log into registry ${{ env.REGISTRY }}
+#        if: github.event_name != 'pull_request'
+#        uses: docker/login-action@v3
+#        with:
+#          registry: ${{ env.REGISTRY }}
+#          username: ${{ github.actor }}
+#          password: ${{ secrets.GITHUB_TOKEN }}
+#
+      - name: docker login
+        run: |-
+          echo $A_SECRET | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build image
         uses: mamezou-tech/buildpacks-action@master
