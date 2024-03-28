@@ -36,8 +36,10 @@ jobs:
 #          password: ${{ secrets.GITHUB_TOKEN }}
 #
       - name: docker login
+        env: # Set the secret as an input
+          PAT: ${{ secrets.A_SECRET }}
         run: |-
-          echo $A_SECRET | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          echo $PAT | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build image
         uses: mamezou-tech/buildpacks-action@master
