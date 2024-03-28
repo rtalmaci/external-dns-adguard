@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  namespace: kube-system
   name: external-dns-adguard
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -12,6 +13,7 @@ metadata:
 rules:
 - apiGroups:
   - extensions
+  - ingress
   resources: ["*"]
   verbs:
   - get
@@ -34,6 +36,7 @@ roleRef:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: kube-system
   name: external-dns-adguard
   labels:
     app: external-dns-adguard
@@ -50,7 +53,11 @@ spec:
       serviceAccountName: external-dns-adguard
       containers:
       - name: external-dns-adguard
-        image: ghcr.io/natisayada/external-dns-adguard:main
+        image: ghcr.io/rtalmaci/external-dns-adguard:main
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 128M
         env:
           - name: DOMAIN_NAME
             value: local.lan
