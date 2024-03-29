@@ -42,7 +42,7 @@ jobs:
           sudo apt-get install pack-cli
       - name: Build image
         run: |-
-          pack configure builder paketobuildpacks/builder-jammy-base
+          pack config default-builder paketobuildpacks/builder-jammy-base
           pack build ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
