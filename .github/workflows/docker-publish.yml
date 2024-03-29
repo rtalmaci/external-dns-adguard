@@ -50,7 +50,7 @@ jobs:
 
       - name: Build image
         env:
-          LABELS=${{ steps.meta.outputs.labels }}
+          LABELS: ${{ steps.meta.outputs.labels }}
         run: |-
           pack config default-builder paketobuildpacks/builder-jammy-base
           echo "$LABELS"
