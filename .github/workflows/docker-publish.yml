@@ -53,8 +53,8 @@ jobs:
           LABELS: ${{ steps.meta.outputs.labels }}
         run: |-
           pack config default-builder paketobuildpacks/builder-jammy-base
-          echo "$LABELS"
-          pack build --env BP_IMAGE_LABELS=$LABELS ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          export MY_LABELS=$(echo "$LABELS" | tr '=' '="' | tr '\n' '"')
+          pack build --env BP_IMAGE_LABELS=$MY_LABELS ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
 #      - name: Build image
