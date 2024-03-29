@@ -58,7 +58,7 @@ jobs:
           export MY_LABELS=$(echo "$LABELS" | sed 's/=/=\"/g' | sed 's/,/",/g' | sed 's/,org.opencontainers.image.licenses="//g')
           echo "\n\n"
           echo "$MY_LABELS"
-          # pack build --env BP_IMAGE_LABELS=$MY_LABELS ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          pack build --buildpack paketo-buildpacks/image-labels --publish --env BP_IMAGE_LABELS="'"$MY_LABELS"'" ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           # docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
 #      - name: Build image
