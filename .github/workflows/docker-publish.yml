@@ -54,9 +54,9 @@ jobs:
           LABELS: ${{ steps.meta.outputs.labels }}
         run: |-
           pack config default-builder paketobuildpacks/builder-jammy-base
-          export MY_LABELS="'"$(echo "$LABELS" | sed 's/=/=\"/g' | sed 's/,/",/g' | sed 's/,org.opencontainers.image.licenses="//g')"'"
-          echo "$MY_LABELS"
-          pack build  --publish --env BP_IMAGE_LABELS=$MY_LABELS ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          export MY_LABELS=$(echo "$LABELS" | sed 's/=/=\"/g' | sed 's/,/" /g' | sed 's/ org.opencontainers.image.licenses="//g')
+          echo "BP_IMAGE_LABELS=$MY_LABELS" > ./envfile
+          pack build  --publish --env-file ./envfile ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           # docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
 #      - name: Build image
