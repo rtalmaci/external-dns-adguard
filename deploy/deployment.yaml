@@ -53,7 +53,7 @@ spec:
       serviceAccountName: external-dns-adguard
       containers:
       - name: external-dns-adguard
-        image: ghcr.io/rtalmaci/external-dns-adguard:main
+        image: ghcr.io/rtalmaci/external-dns-adguard:latest
         resources:
           limits:
             cpu: 1000m
