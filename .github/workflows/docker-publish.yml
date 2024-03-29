@@ -55,8 +55,7 @@ jobs:
         run: |-
           pack config default-builder paketobuildpacks/builder-jammy-base
           echo "$LABELS" 
-          echo "$LABELS" > input.txt
-          cat input.txt | sed 's/=/=\"/g' | sed 's/,/",/g' | sed 's/,org.opencontainers.image.licenses="//g'
+          export MY_LABELS=$(echo "$LABELS" | sed 's/=/=\"/g' | sed 's/,/",/g' | sed 's/,org.opencontainers.image.licenses="//g')
           echo "\n\n"
           echo "$MY_LABELS"
           # pack build --env BP_IMAGE_LABELS=$MY_LABELS ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
