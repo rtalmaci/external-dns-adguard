@@ -8,26 +8,23 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: external-dns-adguard-readonly-ingress
+  namespace: kube-system
   annotations:
     rbac.authorization.kubernetes.io/autoupdate: "true"
 rules:
-- apiGroups:
-  - extensions
-  - ingress
-  resources: ["*"]
-  verbs:
-  - get
-  - list
-  - watch
+- apiGroups: ["", "extensions", "networking.k8s.io"]
+  resources: ["ingresses"]
+  verbs: ["get","watch","list"]
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: external-dns-adguard-role-binding
+  namespace: kube-system
 subjects:
 - kind: ServiceAccount
   name: external-dns-adguard
-  namespace: default # if you deploying the app in a spesific namespace, update the namespace also here
+  namespace: kube-system
 roleRef:
   kind: ClusterRole
   name: external-dns-adguard-readonly-ingress
